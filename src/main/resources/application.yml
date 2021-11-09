@@ -1,1 +1,23 @@
-
+server:
+  port: 8080
+  servlet:
+    context-path: /verly-service
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+spring:
+  jpa.generate-ddl: true
+  jpa.hibernate.ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/verly
+    username: postgres
+    password: teste!@#$%
+    type: com.zaxxer.hikari.HikariDataSource

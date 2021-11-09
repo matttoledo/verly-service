@@ -6,13 +6,16 @@ import com.verly.verlyservice.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Service
 public class CustomerServiceImpl implements CustomerService {
+
     private final CustomerRepository customerRepository;
 
 

@@ -1,5 +1,7 @@
 package com.verly.verlyservice.application.model;
 
+import javax.persistence.Convert;
+
 public class Address {
 
     String cep;

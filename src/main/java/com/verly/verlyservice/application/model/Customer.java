@@ -1,37 +1,45 @@
 package com.verly.verlyservice.application.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Data
-@Builder
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+@Table(name = "customer", schema = "public")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@EnableAutoConfiguration
 
+public class Customer {
     @Id
-    Integer id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     String name;
 
     String cpf;
 
-    Address address;
+    String address;
 
-    List<String> phone;
+    String phone;
 
     Boolean defaulter;
 
     @CreatedDate
     Date createdAt;
-
 
 
 }
