@@ -1,19 +1,18 @@
 package com.verly.verlyservice.application.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -24,22 +23,23 @@ import java.util.List;
 @EnableAutoConfiguration
 
 public class Customer {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
+    private String name;
 
-    String cpf;
+    private String cpf;
 
-    String address;
+    private String address;
 
-    String phone;
+    private String phone;
 
-    Boolean defaulter;
+    private Boolean defaulter;
 
     @CreatedDate
-    Date createdAt;
+    private Date createdAt;
 
 
 }

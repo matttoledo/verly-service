@@ -19,7 +19,19 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
 
-    public List<Customer> getAll(){
+    public List<Customer> findAll(){
         return customerRepository.findAll();
     }
+
+    public Customer save(Customer customer){
+        log.debug("saving "+customer.toString());
+        return customerRepository.save(customer);
+    }
+
+
+    public void delete(Customer customer){
+        customerRepository.delete(customer);
+    }
+
+
 }
