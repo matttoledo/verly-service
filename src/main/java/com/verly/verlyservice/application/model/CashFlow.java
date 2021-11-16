@@ -4,52 +4,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order", schema = "public")
+@Table(name = "cash-flow", schema = "public")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EnableAutoConfiguration
-public class Order {
+public class CashFlow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long customerId;
+    private String description;
 
-    @ElementCollection
-    private List<Long> productIds;
+    private Long cashIn;
+
+    private Long cashOut;
+
+    private Long orderId;
+
+    private String person;
 
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
+    private LocalDateTime updatedDate;
 
-    private LocalDateTime deliveryDate;
-
-    private Long cost;
-
-    private Long price;
-
-    private Long debt;
 }

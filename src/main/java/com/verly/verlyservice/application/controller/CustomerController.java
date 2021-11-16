@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,22 +26,27 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    private ResponseEntity findAll(){
+    private ResponseEntity<List<Customer>> findAll(){
         List<Customer> customers = customerService.findAll();
         return ResponseEntity.ok(customers);
     }
 
     @PostMapping
-    private ResponseEntity create(@RequestBody Customer customer){
+    private ResponseEntity<Customer> create(@RequestBody Customer customer){
         customerService.save(customer);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.ok(customer);
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity edit(@RequestBody Customer customer, @PathVariable("id") Long id){
+    private ResponseEntity<Customer> edit(@RequestBody Customer customer, @PathVariable("id") Long id){
         customerService.save(customer);
+        return ResponseEntity.ok(customer);
+    }
 
-        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Customer> delete(@RequestBody Customer customer, @PathVariable("id") Long id){
+        customerService.delete(customer);
+        return ResponseEntity.ok(customer);
     }
 
 

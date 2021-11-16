@@ -39,9 +39,19 @@ public class Customer {
     @ElementCollection
     private List<String> phones;
 
-    @OneToMany
-    @JoinColumn
-    private List<Address> address;
+    private String cep;
+
+    private String street;
+
+    private String number;
+
+    private String district;
+
+    private String city;
+
+    private String state;
+
+    private String complement;
 
     private Boolean defaulter;
 
