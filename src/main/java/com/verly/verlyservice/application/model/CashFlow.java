@@ -38,6 +38,8 @@ public class CashFlow {
 
     private String person;
 
+    private String type;
+
     @CreatedDate
     private LocalDateTime createdDate;
 

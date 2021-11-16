@@ -21,13 +21,13 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "order", schema = "public")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@EnableAutoConfiguration
+    @Data
+    @Entity
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Table(name = "order", schema = "public")
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @EnableAutoConfiguration
 public class Order {
 
     @Id
