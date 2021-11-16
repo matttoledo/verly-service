@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,14 +36,16 @@ public class Customer {
 
     private String cpf;
 
-    private String address;
+    @ElementCollection
+    private List<String> phones;
 
-    private String phone;
+    @OneToMany
+    @JoinColumn
+    private List<Address> address;
 
     private Boolean defaulter;
 
     @CreatedDate
     private Date createdAt;
-
 
 }

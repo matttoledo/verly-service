@@ -1,18 +1,36 @@
 package com.verly.verlyservice.application.model;
 
-import javax.persistence.Convert;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Address {
 
-    String cep;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    String logradouro;
+    private String cep;
 
-    String complemento;
+    private String street;
 
-    String bairro;
+    private String number;
 
-    String localidade;
+    private String district;
 
-    String uf;
+    private String city;
+
+    private String state;
+
+    private String complement;
 }
