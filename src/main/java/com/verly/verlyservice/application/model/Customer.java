@@ -8,14 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -24,7 +22,6 @@ import java.util.List;
 @Table(name = "customer", schema = "public")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EnableAutoConfiguration
-
 public class Customer {
 
     @Id

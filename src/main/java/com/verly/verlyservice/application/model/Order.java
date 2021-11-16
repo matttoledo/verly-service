@@ -8,26 +8,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 
-    @Data
-    @Entity
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Table(name = "order", schema = "public")
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @EnableAutoConfiguration
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "order", schema = "public")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@EnableAutoConfiguration
 public class Order {
 
     @Id

@@ -12,14 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cash-flow", schema = "public")
+@Table(name = "cash", schema = "public")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EnableAutoConfiguration
 public class CashFlow {

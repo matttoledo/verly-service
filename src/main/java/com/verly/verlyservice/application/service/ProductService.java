@@ -1,6 +1,5 @@
 package com.verly.verlyservice.application.service;
 
-import com.verly.verlyservice.application.model.Order;
 import com.verly.verlyservice.application.model.Product;
 
 import java.util.List;
