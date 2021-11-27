@@ -1,5 +1,6 @@
 package com.verly.verlyservice.application.controller;
 
+import com.verly.verlyservice.application.model.Address;
 import com.verly.verlyservice.application.model.Customer;
 import com.verly.verlyservice.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.micrometer.core.ipc.http.HttpSender.Response;
+
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -32,14 +36,16 @@ public class CustomerController {
     }
 
     @PostMapping
-    private ResponseEntity<Customer> create(@RequestBody Customer customer){
-        customerService.save(customer);
-        return ResponseEntity.ok(customer);
+    private ResponseEntity<Customer> create(@RequestBody Customer customer, Address address){
+        if(Objects.isNull(customer.getName())) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+        return ResponseEntity.ok(customerService.create(customer, address));
     }
 
     @PatchMapping("/{id}")
     private ResponseEntity<Customer> edit(@RequestBody Customer customer, @PathVariable("id") Long id){
-        customerService.save(customer);
+        customerService.create(customer);
         return ResponseEntity.ok(customer);
     }
 

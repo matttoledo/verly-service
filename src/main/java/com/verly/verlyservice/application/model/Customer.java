@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,7 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,34 +33,16 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private String name;
 
     private String cpf;
 
-    @NotNull
-    private String firstPhone;
+    private String phones;
 
-    private String secondPhone;
-
-    private String cep;
-
-    @NotNull
-    private String street;
-
-    private String number;
-
-    private String district;
-
-    private String city;
-
-    private String state;
-
-    private String complement;
+    private String address;
 
     private Boolean defaulter;
 
-    @CreatedDate
     private Date createdAt;
 
 }
