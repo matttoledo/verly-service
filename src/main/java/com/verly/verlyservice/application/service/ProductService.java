@@ -8,7 +8,9 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    Product save(Product product);
+    Product create(Product product);
+
+    Product edit(Product product);
 
     void delete(Product product);
 }

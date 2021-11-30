@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,8 +31,7 @@ public class Order {
 
     private Long customerId;
 
-    @ElementCollection
-    private List<Long> productIds;
+    private String productIds;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -48,4 +46,5 @@ public class Order {
     private Long price;
 
     private Long debt;
+
 }

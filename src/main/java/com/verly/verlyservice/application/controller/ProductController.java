@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -32,12 +33,14 @@ public class ProductController {
 
     @PostMapping
     private ResponseEntity<Product> create(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.save(product));
+        if (Objects.isNull(product))
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productService.create(product));
     }
 
     @PatchMapping("/{id}")
     private ResponseEntity<Product> edit(@RequestBody Product product, @PathVariable("id") Long id){
-        return ResponseEntity.ok(productService.save(product));
+        return ResponseEntity.ok(productService.edit(product));
     }
 
     @DeleteMapping("/{id}")

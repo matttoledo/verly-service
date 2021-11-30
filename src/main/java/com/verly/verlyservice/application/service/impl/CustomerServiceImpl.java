@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import ch.qos.logback.core.net.ObjectWriter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,6 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public Customer create(Customer customer, Address address) {
+            customer.setCreatedAt(LocalDateTime.now());
             var json2 = gson.toJson(address);
             log.info("json1: ", json2);
             
