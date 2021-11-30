@@ -40,19 +40,19 @@ public class Product {
 
     private String sheets;
 
-    private Long width;
+    private Double width;
 
-    private Long height;
+    private Double height;
 
-    private Long measure;
+    private Double measure;
 
     private String color;
 
-    private Long cost;
+    private Double cost;
 
-    private Long price;
+    private Double price;
 
-    private Long profit;
+    private Double profit;
 
     private LocalDateTime createdDate;
 

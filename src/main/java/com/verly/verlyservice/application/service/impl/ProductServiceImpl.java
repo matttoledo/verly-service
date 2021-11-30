@@ -34,6 +34,12 @@ public class ProductServiceImpl implements ProductService {
         
         product.setCreatedDate(LocalDateTime.now());
 
+        //transformando em m²
+        product.setMeasure(product.getHeight()*product.getWidth()/10000);
+
+        //setando o preço do produto buscando o valor do m²
+        product.setPrice(product.getMeasure()*25);
+
         return productRepository.save(product);
     }
 
