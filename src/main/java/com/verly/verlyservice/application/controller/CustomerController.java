@@ -36,11 +36,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    private ResponseEntity<Customer> create(@RequestBody Customer customer, Address address){
+    private ResponseEntity<Customer> create(@RequestBody Customer customer){
         if(Objects.isNull(customer.getName())) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-        return ResponseEntity.ok(customerService.create(customer, address));
+        customer.setDefaulter(false);
+        return ResponseEntity.ok(customerService.create(customer));
     }
 
     @PatchMapping("/{id}")

@@ -9,7 +9,7 @@ public interface CustomerService {
 
     List<Customer> findAll();
 
-    Customer create(Customer customer, String address);
+    Customer create(Customer customer);
 
     void delete(Customer customer);
 }

@@ -21,24 +21,24 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> findAll(){
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    public void delete(Product product){
+    public void delete(Product product) {
         productRepository.delete(product);
     }
 
     @Override
     public Product create(Product product) {
-        
+
         product.setCreatedDate(LocalDateTime.now());
 
-        //transformando em m²
-        product.setMeasure(product.getHeight()*product.getWidth()/10000);
+        // transformando em m²
+        product.setMeasure(product.getHeight() * product.getWidth() / 10000);
 
-        //setando o preço do produto buscando o valor do m²
-        product.setPrice(product.getMeasure()*25);
+        // setando o custo do produto buscando o valor do m²
+        product.setCost(product.getMeasure() * 25);
 
         return productRepository.save(product);
     }
@@ -48,6 +48,5 @@ public class ProductServiceImpl implements ProductService {
         // TODO Auto-generated method stub
         return null;
     }
-
 
 }

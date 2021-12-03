@@ -27,17 +27,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final Gson gson = new Gson();
-    private final ObjectMapper objectMapper;
     
-
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 
-    public Customer create(Customer customer, Address address) {
+    public Customer create(Customer customer) {
             customer.setCreatedAt(LocalDateTime.now());
-            var json2 = gson.toJson(address);
-            log.info("json1: ", json2);
+            // Address addressJson = gson.fromJson(customer.getAddress(), Address.class);
+            
+            log.info("json: ", customer);
             
             return customerRepository.save(customer);
 
@@ -46,5 +45,6 @@ public class CustomerServiceImpl implements CustomerService {
     public void delete(Customer customer) {
         customerRepository.delete(customer);
     }
+
 
 }
