@@ -1,6 +1,6 @@
 package com.verly.verlyservice.application.controller;
 
-import com.verly.verlyservice.application.model.Product;
+import com.verly.verlyservice.application.model.product.Product;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.verly.verlyservice.application.model;
+package com.verly.verlyservice.application.model.customer;
 
 import lombok.Getter;
 import lombok.Setter;

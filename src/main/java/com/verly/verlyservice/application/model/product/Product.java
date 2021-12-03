@@ -1,9 +1,9 @@
-package com.verly.verlyservice.application.model;
+package com.verly.verlyservice.application.model.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.verly.verlyservice.application.model.enums.ProductCategory;
-import com.verly.verlyservice.application.model.enums.ProductColor;
-import com.verly.verlyservice.application.model.enums.ProductType;
+import com.verly.verlyservice.application.model.product.enums.ProductCategory;
+import com.verly.verlyservice.application.model.product.enums.ProductColor;
+import com.verly.verlyservice.application.model.product.enums.ProductType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

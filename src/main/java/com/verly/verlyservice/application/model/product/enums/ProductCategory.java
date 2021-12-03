@@ -1,4 +1,4 @@
-package com.verly.verlyservice.application.model.enums;
+package com.verly.verlyservice.application.model.product.enums;
 
 public enum ProductCategory {
     VIDRO_TEMPERADO,

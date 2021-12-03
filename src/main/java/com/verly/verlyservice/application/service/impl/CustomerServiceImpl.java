@@ -2,8 +2,8 @@ package com.verly.verlyservice.application.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.verly.verlyservice.application.model.Address;
-import com.verly.verlyservice.application.model.Customer;
+import com.verly.verlyservice.application.model.customer.Address;
+import com.verly.verlyservice.application.model.customer.Customer;
 import com.verly.verlyservice.application.repository.CustomerRepository;
 import com.verly.verlyservice.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;

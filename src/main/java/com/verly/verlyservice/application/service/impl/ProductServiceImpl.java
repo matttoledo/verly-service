@@ -1,6 +1,6 @@
 package com.verly.verlyservice.application.service.impl;
 
-import com.verly.verlyservice.application.model.Product;
+import com.verly.verlyservice.application.model.product.Product;
 import com.verly.verlyservice.application.repository.ProductRepository;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;

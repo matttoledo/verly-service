@@ -1,8 +1,8 @@
 package com.verly.verlyservice.application.service;
 
-import com.verly.verlyservice.application.model.Product;
-
 import java.util.List;
+
+import com.verly.verlyservice.application.model.product.Product;
 
 public interface ProductService {
 

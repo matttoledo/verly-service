@@ -1,7 +1,7 @@
 package com.verly.verlyservice.application.service;
 
-import com.verly.verlyservice.application.model.Address;
-import com.verly.verlyservice.application.model.Customer;
+import com.verly.verlyservice.application.model.customer.Address;
+import com.verly.verlyservice.application.model.customer.Customer;
 
 import java.util.List;
 
