@@ -32,12 +32,12 @@ public class OrderController {
 
     @PostMapping
     private ResponseEntity<Order> create(@RequestBody Order order){
-        return ResponseEntity.ok(orderService.save(order));
+        return ResponseEntity.ok(orderService.create(order));
     }
 
     @PatchMapping("/{id}")
     private ResponseEntity<Order> edit(@RequestBody Order order, @PathVariable("id") Long id){
-        return ResponseEntity.ok(orderService.save(order));
+        return ResponseEntity.ok(orderService.edit(order));
     }
 
     @DeleteMapping("/{id}")

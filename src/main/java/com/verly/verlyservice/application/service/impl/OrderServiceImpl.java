@@ -1,13 +1,21 @@
 package com.verly.verlyservice.application.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.verly.verlyservice.application.model.Cart;
+import com.verly.verlyservice.application.model.Item;
 import com.verly.verlyservice.application.model.Order;
 import com.verly.verlyservice.application.repository.OrderRepository;
 import com.verly.verlyservice.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.boot.autoconfigure.condition.ConditionMessage.ItemsBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -17,17 +25,29 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final Gson gson;
 
     public List<Order> findAll(){return orderRepository.findAll();
     }
 
-    public Order save(Order order){
+    public Order create(Order order){
+        //recuperando o objeto cart que é uma list<items>
+        // Cart cart = gson.fromJson(order.getProducts(), Cart.class);
+
+        Type items = new TypeToken<ArrayList<Item>>() {}.getType();
+        ArrayList<Item> items2 = gson.fromJson(order.getProducts(), items);
+        items2.stream().forEach(item -> {System.out.println(item.toString());});
         return orderRepository.save(order);
     }
 
 
     public void delete(Order order){
         orderRepository.delete(order);
+    }
+
+    @Override
+    public Order edit(Order order) {
+        return orderRepository.save(order);
     }
 
 

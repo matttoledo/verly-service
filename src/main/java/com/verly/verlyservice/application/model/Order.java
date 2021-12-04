@@ -31,7 +31,7 @@ public class Order {
 
     private Long customerId;
 
-    private String productIds;
+    private String products;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -46,5 +46,7 @@ public class Order {
     private Long price;
 
     private Long debt;
+
+    private Long profit;
 
 }
