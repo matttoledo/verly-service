@@ -5,14 +5,18 @@ import com.google.gson.reflect.TypeToken;
 import com.verly.verlyservice.application.model.Cart;
 import com.verly.verlyservice.application.model.Item;
 import com.verly.verlyservice.application.model.Order;
+import com.verly.verlyservice.application.model.product.Product;
 import com.verly.verlyservice.application.repository.OrderRepository;
 import com.verly.verlyservice.application.service.OrderService;
+import com.verly.verlyservice.application.util.Util;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.autoconfigure.condition.ConditionMessage.ItemsBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.util.SystemPropertyUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -25,18 +29,35 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final Gson gson;
+
+    private final Util util;
 
     public List<Order> findAll(){return orderRepository.findAll();
     }
 
     public Order create(Order order){
-        //recuperando o objeto cart que é uma list<items>
-        // Cart cart = gson.fromJson(order.getProducts(), Cart.class);
+        
+        List<Item> items = util.readProducts(order);
+        List<Product> products = new ArrayList<>();
+        List<String> productsId = new ArrayList<>();
+        Double sumProducts = 0.0001D;
+    
+        items.stream().forEach(item ->{
+            productsId.add(item.getProductId());
+            
+        });
 
-        Type items = new TypeToken<ArrayList<Item>>() {}.getType();
-        ArrayList<Item> items2 = gson.fromJson(order.getProducts(), items);
-        items2.stream().forEach(item -> {System.out.println(item.toString());});
+        log.error(productsId.toString());
+
+        log.error("buscar os productsIds na interface dos produtos");
+
+        System.out.println();
+        List<Double> totalPrice = new ArrayList<>();
+
+    
+        System.out.println(totalPrice.toString());
+
+    
         return orderRepository.save(order);
     }
 

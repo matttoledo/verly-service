@@ -26,7 +26,6 @@ import javax.management.InstanceNotFoundException;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final Gson gson = new Gson();
     
     public List<Customer> findAll() {
         return customerRepository.findAll();
