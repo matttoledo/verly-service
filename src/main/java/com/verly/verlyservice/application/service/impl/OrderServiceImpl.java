@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.SystemPropertyUtils;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +38,20 @@ public class OrderServiceImpl implements OrderService {
 
     public Order create(Order order){
         
-        List<Item> items = util.readProducts(order);
-        List<Product> products = new ArrayList<>();
-        List<String> productsId = new ArrayList<>();
-        Double sumProducts = 0.0001D;
-    
-        items.stream().forEach(item ->{
-            productsId.add(item.getProductId());
-            
+        ArrayList<Long> productIds = new ArrayList<>();
+        ArrayList<Item> products = util.readProducts(order);
+        
+        products.stream().forEach(product ->{
+            productIds.add(product.getProductId());
         });
 
-        log.error(productsId.toString());
+        log.info("buscar os productIds na interface de produtos");
+        log.info("verificar a quantidade e somar o preço de todos os produtos");
 
-        log.error("buscar os productsIds na interface dos produtos");
-
-        System.out.println();
-        List<Double> totalPrice = new ArrayList<>();
-
-    
-        System.out.println(totalPrice.toString());
-
+        order.setCreatedDate(LocalDateTime.now());
+        order.setDeliveryDate(LocalDateTime.now().plusDays(15));
+        order.setProfit(order.getPrice()-order.getCost());
+        order.setDebt(order.getPrice()-order.getPaid());
     
         return orderRepository.save(order);
     }

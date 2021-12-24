@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Item {
     
-    String productId;
+    Long productId;
 
     Double quantity;
 

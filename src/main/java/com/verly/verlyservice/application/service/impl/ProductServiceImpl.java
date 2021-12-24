@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -48,5 +49,18 @@ public class ProductServiceImpl implements ProductService {
         // TODO Auto-generated method stub
         return null;
     }
+
+
+
+    public ArrayList<Product> findProductsByproductIds(ArrayList<Long> productIds){
+        
+        // ArrayList<Product> products = new ArrayList(); 
+        // productIds.stream().forEach(product ->{
+        //     productIds.add(product);
+        // });
+
+        return (ArrayList<Product>) productRepository.findAllById(productIds);
+    }
+
 
 }

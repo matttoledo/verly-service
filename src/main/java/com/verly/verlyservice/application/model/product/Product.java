@@ -44,6 +44,8 @@ public class Product {
 
     private Double height;
 
+    private Double weight;
+
     private Double measure;
 
     private String color;

@@ -33,6 +33,8 @@ public class Order {
 
     private String products;
 
+    private String status;
+
     @CreatedDate
     private LocalDateTime createdDate;
 
@@ -41,12 +43,14 @@ public class Order {
 
     private LocalDateTime deliveryDate;
 
-    private Long cost;
+    private Double cost;
 
-    private Long price;
+    private Double price;
 
-    private Long debt;
+    private Double debt;
 
-    private Long profit;
+    private Double paid;
+
+    private Double profit;
 
 }
