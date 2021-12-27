@@ -18,8 +18,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SystemPropertyUtils;
 
+
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
         
         ArrayList<Long> productIds = new ArrayList<>();
         ArrayList<Item> products = util.readProducts(order);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
         products.stream().forEach(product ->{
             productIds.add(product.getProductId());

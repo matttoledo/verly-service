@@ -1,24 +1,18 @@
 package com.verly.verlyservice.application.model.customer;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class Address {
 
     private String cep;
 
-    private String street;
+    private String bairro;
 
-    private String number;
+    private String localidade;
 
-    private String district;
+    private String logradouro;
 
-    private String city;
+    private String complemento;
 
-    private String state;
-
-    private String complement;
+    private String uf;
 
 }
