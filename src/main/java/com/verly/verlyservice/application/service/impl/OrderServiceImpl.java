@@ -8,7 +8,6 @@ import com.verly.verlyservice.application.model.Order;
 import com.verly.verlyservice.application.model.product.Product;
 import com.verly.verlyservice.application.repository.OrderRepository;
 import com.verly.verlyservice.application.service.OrderService;
-import com.verly.verlyservice.application.util.Util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,28 +33,26 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final Util util;
-
     public List<Order> findAll(){return orderRepository.findAll();
     }
 
     public Order create(Order order){
         
         ArrayList<Long> productIds = new ArrayList<>();
-        ArrayList<Item> products = util.readProducts(order);
+        // ArrayList<Item> products = util.readProducts(order);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
-        products.stream().forEach(product ->{
-            productIds.add(product.getProductId());
-        });
+        // products.stream().forEach(product ->{
+        //     productIds.add(product.getProductId());
+        // });
 
         log.info("buscar os productIds na interface de produtos");
         log.info("verificar a quantidade e somar o preço de todos os produtos");
 
-        order.setCreatedDate(LocalDateTime.now());
-        order.setDeliveryDate(LocalDateTime.now().plusDays(15));
-        order.setProfit(order.getPrice()-order.getCost());
-        order.setDebt(order.getPrice()-order.getPaid());
+        // order.setCreatedDate(LocalDateTime.now());
+        // order.setDeliveryDate(LocalDateTime.now().plusDays(15));
+        // order.setProfit(order.getPrice()-order.getCost());
+        // order.setDebt(order.getPrice()-order.getPaid());
     
         return orderRepository.save(order);
     }

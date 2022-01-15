@@ -48,11 +48,9 @@ public class Customer {
 
     @Convert(converter = HashMapConverter.class)
     private Map<String, Object> address;
-
+    
     private Boolean defaulter;
 
     private LocalDateTime createdAt;
-
-
 
 }
