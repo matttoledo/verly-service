@@ -44,7 +44,7 @@ public class Customer {
     private String cpf;
 
     @Convert(converter = HashMapConverter.class)
-    private Map<String, Object> phones;
+    private Map<String, Object> phone;
 
     @Convert(converter = HashMapConverter.class)
     private Map<String, Object> address;

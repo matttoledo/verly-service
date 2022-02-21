@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -55,6 +56,16 @@ public class OrderServiceImpl implements OrderService {
         // order.setDebt(order.getPrice()-order.getPaid());
     
         return orderRepository.save(order);
+    }
+
+    public void calculateOrderPrice(Order order){
+        Double price;
+        Map<String,Object> items = order.getProducts();
+        
+        for(Map.Entry<String,Object> entry : items.entrySet()){
+                System.out.println("Entry: "+ entry);
+        }
+
     }
 
 

@@ -40,7 +40,7 @@ public class CustomerController {
         if(Objects.isNull(customer.getName())) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-        customer.setDefaulter(false);
+        log.info("creating customer: ", customer.toString());
         return ResponseEntity.ok(customerService.create(customer));
     }
 
