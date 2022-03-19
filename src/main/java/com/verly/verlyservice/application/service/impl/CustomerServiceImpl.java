@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -18,23 +19,24 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
-    
+
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 
     public Customer create(Customer customer) {
-            customer.setCreatedAt(LocalDateTime.now());
-
-            log.info("json: ", customer);
-            
-            return customerRepository.save(customer);
+        customer.setCreatedAt(LocalDateTime.now());
+        return customerRepository.save(customer);
 
     }
 
-    public void delete(Customer customer) {
-        customerRepository.delete(customer);
+    public void delete(Long id) {
+        customerRepository.deleteById(id);
     }
 
+    @Override
+    public Customer edit(Customer customer) {
+        return customerRepository.save(customer);
+    }
 
 }
