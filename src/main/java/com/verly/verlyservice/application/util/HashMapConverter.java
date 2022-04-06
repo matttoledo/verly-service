@@ -23,7 +23,7 @@ public class HashMapConverter implements AttributeConverter<Map<String, Object>,
         try {
             attributeJson = objectMapper.writeValueAsString(attribute);
         } catch (final JsonProcessingException e){
-            log.error("Erro na escritar do json", e);
+            log.error("Erro na escrita do json", e);
         }
         return attributeJson;
     }

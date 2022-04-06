@@ -14,10 +14,12 @@ management:
     prometheus:
       enabled: true
 spring:
-  jpa.generate-ddl: true
-  jpa.hibernate.ddl-auto: update
+  jpa:
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     url: jdbc:postgresql://localhost:5432/verly
-    username: postgres
-    password: teste!@#$%
+    username: admin
+    password: admin!@#$%
     type: com.zaxxer.hikari.HikariDataSource

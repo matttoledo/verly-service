@@ -1,19 +1,12 @@
 package com.verly.verlyservice.application.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.sun.istack.NotNull;
 import com.verly.verlyservice.application.util.HashMapConverter;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.data.annotation.CreatedDate;
+
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -21,9 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Map;
 
 @Getter
@@ -31,7 +22,7 @@ import java.util.Map;
 @Entity
 @NoArgsConstructor
 @Table(name = "customer", schema = "public")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EnableAutoConfiguration
 public class Customer {
 

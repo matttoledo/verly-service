@@ -1,6 +1,5 @@
 package com.verly.verlyservice.application.service;
 
-import com.verly.verlyservice.application.model.customer.Address;
 import com.verly.verlyservice.application.model.customer.Customer;
 
 import java.util.List;
@@ -14,4 +13,6 @@ public interface CustomerService {
     void delete(Long id);
 
     Customer edit(Customer customer);
+
+    Customer findOne(Long id);
 }
