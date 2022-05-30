@@ -1,6 +1,7 @@
 package com.verly.verlyservice.application.controller;
 
 import com.verly.verlyservice.application.model.product.Product;
+import com.verly.verlyservice.application.model.product.ProductDTO;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,25 +27,25 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    private ResponseEntity<List<Product>> findAll(){
-        List<Product> products = productService.findAll();
+    private ResponseEntity<List<ProductDTO>> findAll(){
+        List<ProductDTO> products = productService.findAll();
         return ResponseEntity.ok(products);
     }
 
     @PostMapping
-    private ResponseEntity<Product> create(@RequestBody Product product) {
+    private ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
         if (Objects.isNull(product))
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(productService.create(product));
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity<Product> edit(@RequestBody Product product, @PathVariable("id") Long id){
+    private ResponseEntity<ProductDTO> edit(@RequestBody ProductDTO product, @PathVariable("id") Long id){
         return ResponseEntity.ok(productService.edit(product));
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Product> delete(@RequestBody Product product, @PathVariable("id") Long id){
+    private ResponseEntity<ProductDTO> delete(@RequestBody ProductDTO product, @PathVariable("id") Long id){
         return ResponseEntity.ok(product);
     }
 

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.verly.verlyservice.application.model.product.Product;
+import com.verly.verlyservice.application.model.product.ProductDTO;
 
 public interface ProductService {
 
-    List<Product> findAll();
+    List<ProductDTO> findAll();
 
-    Product create(Product product);
+    Product create(ProductDTO product);
 
-    Product edit(Product product);
+    Product edit(ProductDTO product);
 
-    void delete(Product product);
+    void delete(ProductDTO product);
 
     ArrayList<Product> findProductsByproductIds(ArrayList<Long> productIds);
 

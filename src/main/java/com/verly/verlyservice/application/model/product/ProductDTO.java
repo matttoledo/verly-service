@@ -5,35 +5,13 @@ import com.verly.verlyservice.application.model.product.enums.ProductCategory;
 import com.verly.verlyservice.application.model.product.enums.ProductColor;
 import com.verly.verlyservice.application.model.product.enums.ProductSheets;
 import com.verly.verlyservice.application.model.product.enums.ProductType;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Getter
-@Setter
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "product", schema = "public")
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@EnableAutoConfiguration
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ProductDTO {
 
     private ProductCategory category;
 
@@ -51,8 +29,13 @@ public class Product {
 
     private ProductColor color;
 
+    private Double cost;
+
+    private Double price;
+
+    private Double profit;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime lastUpdateDate;
-
 }
