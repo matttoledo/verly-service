@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDTO {
 
+    private Long id;
+
     private ProductCategory category;
 
     private ProductType type;

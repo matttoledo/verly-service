@@ -33,14 +33,14 @@ public class ProductController {
     }
 
     @PostMapping
-    private ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
+    private ResponseEntity<Product> create(@RequestBody ProductDTO product) {
         if (Objects.isNull(product))
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(productService.create(product));
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity<ProductDTO> edit(@RequestBody ProductDTO product, @PathVariable("id") Long id){
+    private ResponseEntity<Product> edit(@RequestBody ProductDTO product, @PathVariable("id") Long id){
         return ResponseEntity.ok(productService.edit(product));
     }
 

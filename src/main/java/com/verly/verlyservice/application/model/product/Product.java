@@ -47,8 +47,6 @@ public class Product {
 
     private Double weight;
 
-    private Double measure;
-
     private ProductColor color;
 
     private LocalDateTime createdDate;

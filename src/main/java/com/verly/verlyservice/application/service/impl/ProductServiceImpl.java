@@ -42,78 +42,90 @@ public class ProductServiceImpl implements ProductService {
     private Double laborValueJanelaOpen= 30.00;
 
 
-    public List<Product> findAll() {
+    public List<ProductDTO> findAll() {
         var products = productRepository.findAll();
-
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for(Product product : products){
+            var productDTO = productToProductDTO(product);
+            calculateCost(productDTO);
+            productDTOS.add(productDTO);
+        }
+        return productDTOS;
     }
 
-    public Double calculateLaborValueBySheetsAndType(ProductDTO productDTO) {
-        if(productDTO.getType().equals(ProductType.BOX)){
-            if(productDTO.getSheets().equals(ProductSheets.DUAS)){
-                return laborValueBox2F;
-            }
-            else if(productDTO.getSheets().equals(ProductSheets.QUATRO)){
+    private ProductDTO productToProductDTO (Product product){
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setCategory(product.getCategory());
+        productDTO.setType(product.getType());
+        productDTO.setSheets(product.getSheets());
+        productDTO.setWidth(product.getWidth());
+        productDTO.setHeight(product.getHeight());
+        productDTO.setWeight(product.getWeight());
+        productDTO.setColor(product.getColor());
 
-            }
-        }
-        if(productDTO.getType().equals(ProductType.JANELA)){
-            if(productDTO.getSheets().equals(ProductSheets.DUAS)){
-            }
-            else if(productDTO.getSheets().equals(ProductSheets.QUATRO)){
-
-            }
-        }
+        return productDTO;
     }
 
-    private ProductDTO calculatePriceAndCost(Product product) {
-        var productDTO = new ProductDTO();
+    private Product productDTOToProduct (ProductDTO productDTO){
+        Product product = new Product();
+        product.setCategory(productDTO.getCategory());
+        product.setType(productDTO.getType());
+        product.setSheets(productDTO.getSheets());
+        product.setWidth(productDTO.getWidth());
+        product.setHeight(productDTO.getHeight());
+        product.setWeight(productDTO.getWeight());
+        product.setColor(productDTO.getColor());
+
+        return product;
+    }
+
+    private void calculateCost(ProductDTO productDTO) {
         Double colorPrice = 0.00;
-        if(product.getCategory().equals(ProductCategory.VIDRO_TEMPERADO)){
-            if(product.getColor().equals(ProductColor.INCOLOR))
-                colorPrice= incolorPrice;
-            else if(product.getColor().equals(ProductColor.FUME))
+
+        if(productDTO.getCategory().equals(ProductCategory.VIDRO_TEMPERADO)) {
+            if (productDTO.getColor().equals(ProductColor.INCOLOR))
+                colorPrice = incolorPrice;
+            else if (productDTO.getColor().equals(ProductColor.FUME))
                 colorPrice = fumePrice;
-            else if(product.getColor().equals(ProductColor.VERDE))
+            else if (productDTO.getColor().equals(ProductColor.VERDE))
                 colorPrice = verdePrice;
 
-            if(product.getType().equals(ProductType.BOX)){
-                if(product.getSheets().equals(ProductSheets.DUAS)){
-                    productDTO.setCost(product.getMeasure()*colorPrice + laborValueBox2F);
-                    productDTO.setPrice(verdePrice + laborValueBox2F);
-                }
-                calculateLaborValueBySheetsAndType(productDTO);
+            if (productDTO.getType().equals(ProductType.BOX)) {
+                if (productDTO.getSheets().equals(ProductSheets.DUAS))
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + laborValueBox2F);
+                if (productDTO.getSheets().equals(ProductSheets.QUATRO))
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + laborValueBox4F);
             }
-            if(product.getColor().equals(ProductColor.INCOLOR))
-                productDTO.setCost(product.getMeasure()*incolorPrice);
+
+            if (productDTO.getType().equals(ProductType.JANELA)) {
+                if (productDTO.getSheets().equals(ProductSheets.DUAS))
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + laborValueJanela2F);
+
+            }
+            if (productDTO.getColor().equals(ProductColor.INCOLOR))
+                productDTO.setCost(productDTO.getMeasure() * incolorPrice);
 
         }
-
-
-
     }
 
-    public void delete(Product product) {
-        productRepository.delete(product);
+    public void delete(ProductDTO productDTO) {
+        productRepository.delete(productDTOToProduct(productDTO));
     }
 
     @Override
-    public Product create(ProductDTO product) {
+    public Product create(ProductDTO productDTO) {
+        var product = productDTOToProduct(productDTO);
 
         product.setCreatedDate(LocalDateTime.now());
-
-        // transformando em m²
-        product.setMeasure(product.getHeight() * product.getWidth() / 10000);
-
-        // setando o custo do produto buscando o valor do m²
-        product.setCost(product.getMeasure() * 25);
 
         return productRepository.save(product);
     }
 
     @Override
-    public ProductDTO edit(ProductDTO product) {
-        // TODO Auto-generated method stub
-        return null;
+    public Product edit(ProductDTO productDTO) {
+        var product = productRepository.getById(productDTO.getId());
+        var productDTO2 = productToProductDTO(product);
+        return productDTOToProduct(productDTO2);
     }
 
 
