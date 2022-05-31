@@ -35,11 +35,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private ProductCategory category;
+    private String category;
 
-    private ProductType type;
+    private String type;
 
-    private ProductSheets sheets;
+    private String sheets;
 
     private Double width;
 
@@ -47,7 +47,7 @@ public class Product {
 
     private Double weight;
 
-    private ProductColor color;
+    private String color;
 
     private LocalDateTime createdDate;
 

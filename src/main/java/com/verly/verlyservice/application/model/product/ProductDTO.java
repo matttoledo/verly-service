@@ -15,11 +15,11 @@ public class ProductDTO {
 
     private Long id;
 
-    private ProductCategory category;
+    private String category;
 
-    private ProductType type;
+    private String type;
 
-    private ProductSheets sheets;
+    private String sheets;
 
     private Double width;
 
@@ -29,7 +29,7 @@ public class ProductDTO {
 
     private Double measure;
 
-    private ProductColor color;
+    private String color;
 
     private Double cost;
 
