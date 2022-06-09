@@ -13,7 +13,7 @@ public interface ProductCostService {
 
     ProductCost edit(ProductCost productCost);
 
-    void delete(ProductCost productCost);
+    void delete(Long id);
 
-    ArrayList<ProductCost> findProductsCostById(ArrayList<Long> productCostId);
+    ProductCost findOne(Long id);
 }
