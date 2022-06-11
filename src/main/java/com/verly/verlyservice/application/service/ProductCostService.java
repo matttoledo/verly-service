@@ -3,7 +3,6 @@ package com.verly.verlyservice.application.service;
 import com.verly.verlyservice.application.model.ProductCost;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public interface ProductCostService {
 
