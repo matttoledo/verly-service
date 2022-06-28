@@ -10,6 +10,7 @@ import com.verly.verlyservice.application.repository.ProductRepository;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +72,6 @@ public class ProductServiceImpl implements ProductService {
         productDTO.setHeight(product.getHeight());
         productDTO.setWeight(product.getWeight());
         productDTO.setColor(product.getColor());
-
         return productDTO;
     }
 
@@ -149,6 +149,9 @@ public class ProductServiceImpl implements ProductService {
             }
 
         }
+        productDTO.setProfit(DoubleRounder.round(productDTO.getProfit(),2));
+        productDTO.setCost(DoubleRounder.round(productDTO.getCost(),2));
+
     }
 
     public void delete(ProductDTO productDTO) {
