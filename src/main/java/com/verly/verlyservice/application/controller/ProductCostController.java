@@ -16,25 +16,8 @@ public class ProductCostController {
     private final ProductCostService productCostService;
 
     @GetMapping
-    private ResponseEntity<List<ProductCost>> findAll(){
-        List<ProductCost> productCost = productCostService.findAll();
-        return ResponseEntity.ok(productCost);
-    }
-
-    @PostMapping
-    private ResponseEntity<ProductCost> create(@RequestBody ProductCost productCost){
-        if(Objects.isNull(productCost))
-            return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(productCostService.create(productCost));
-    }
-
-    @PatchMapping("/{id}")
-    private ResponseEntity<ProductCost> edit(@RequestBody ProductCost productCost, @PathVariable("id") Long id){
-        return ResponseEntity.ok(productCostService.edit(productCost));
-    }
-
-    @DeleteMapping("/{id}")
-    private ResponseEntity<ProductCost> delete(@RequestBody ProductCost productCost, @PathVariable("id") Long id){
+    private ResponseEntity<ProductCost> recoverCost(){
+        ProductCost productCost = productCostService.recoverCost();
         return ResponseEntity.ok(productCost);
     }
 }

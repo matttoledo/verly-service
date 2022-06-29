@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "product cost", schema = "public")
+@Table(name = "product_cost", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties

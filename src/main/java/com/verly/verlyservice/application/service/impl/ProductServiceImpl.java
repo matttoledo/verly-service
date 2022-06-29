@@ -1,14 +1,13 @@
 package com.verly.verlyservice.application.service.impl;
 
-import com.verly.verlyservice.application.model.ProductCost;
 import com.verly.verlyservice.application.model.product.Product;
 import com.verly.verlyservice.application.model.product.ProductDTO;
 import com.verly.verlyservice.application.model.product.enums.ProductCategory;
 import com.verly.verlyservice.application.model.product.enums.ProductColor;
 import com.verly.verlyservice.application.model.product.enums.ProductSheets;
 import com.verly.verlyservice.application.model.product.enums.ProductType;
-import com.verly.verlyservice.application.repository.ProductCostRepository;
 import com.verly.verlyservice.application.repository.ProductRepository;
+import com.verly.verlyservice.application.service.ProductCostService;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductCostRepository productCostRepository;
+    private final ProductCostService productCostService;
 
     public List<ProductDTO> findAll() {
         var products = productRepository.findAll();
@@ -67,62 +66,61 @@ public class ProductServiceImpl implements ProductService {
 
     private void calculatePriceAndCost(ProductDTO productDTO) {
         Double colorPrice = 0.00;
-        ProductCost productCost = new ProductCost();
 
         productDTO.setMeasure(productDTO.getWidth() * productDTO.getHeight() / 10000);
 
         if(productDTO.getCategory().equals(ProductCategory.VIDRO_TEMPERADO.toString())) {
             if (productDTO.getColor().equals(ProductColor.INCOLOR.toString()))
-                colorPrice = productCost.getIncolorPrice();
+                colorPrice = 50.00;
             else if (productDTO.getColor().equals(ProductColor.FUME.toString()))
-                colorPrice = productCost.getFumePrice();
+                colorPrice = 60.00;
             else if (productDTO.getColor().equals(ProductColor.VERDE.toString()))
-                colorPrice = productCost.getVerdePrice();
+                colorPrice = 70.00;
 
             if (productDTO.getType().equals(ProductType.BOX.toString())) {
                 if (productDTO.getSheets().equals(ProductSheets.DUAS.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValueBox2F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getBox2FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBox2F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBox2FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if (productDTO.getSheets().equals(ProductSheets.QUATRO.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValueBox4F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getBox4FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBox4F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBox4FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.OPEN.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValueBoxOpen());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getBoxOpenGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBoxOpen());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBoxOpenGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }
 
             if (productDTO.getType().equals(ProductType.JANELA.toString())) {
                 if (productDTO.getSheets().equals(ProductSheets.DUAS.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValueJanela2F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getJanela2FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueJanela2F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getJanela2FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.QUATRO.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValueJanela4F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getJanela4fGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueJanela4F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getJanela4fGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }
             if(productDTO.getType().equals(ProductType.PORTA.toString())){
                 if(productDTO.getSheets().equals(ProductSheets.DUAS.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValuePorta2F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getPorta2FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePorta2F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPorta2FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.QUATRO.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValuePorta4F());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getPorta4FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePorta4F());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPorta4FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.OPEN.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCost.getLaborValuePortaOpen());
-                    productDTO.setPrice(productDTO.getCost() + productCost.getPortaOpenGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePortaOpen());
+                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPortaOpenGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }

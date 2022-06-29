@@ -19,29 +19,7 @@ public class ProductCostServiceImpl implements ProductCostService {
     private final ProductCostRepository productCostRepository;
 
     @Override
-    public List<ProductCost> findAll() {
-        return productCostRepository.findAll();
+    public ProductCost recoverCost() {
+        return productCostRepository.findAll().get(0);
     }
-
-    @Override
-    public ProductCost create(ProductCost productCost) {
-        return productCostRepository.save(productCost);
-    }
-
-    @Override
-    public ProductCost edit(ProductCost productCost) {
-        return productCostRepository.save(productCost);
-    }
-
-    @Override
-    public void delete(Long id){
-        productCostRepository.deleteById(id);
-    }
-
-    @Override
-    public ProductCost findOne(Long id) {
-        return productCostRepository.findById(id).get();
-    }
-
-
 }
