@@ -11,11 +11,15 @@ public class ProductDTO {
 
     private Long id;
 
+    private String key;
+
     private String category;
 
     private String type;
 
     private String sheets;
+
+    private String kit;
 
     private Double width;
 

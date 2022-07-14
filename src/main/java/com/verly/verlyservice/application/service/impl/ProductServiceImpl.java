@@ -7,7 +7,7 @@ import com.verly.verlyservice.application.model.product.enums.ProductColor;
 import com.verly.verlyservice.application.model.product.enums.ProductSheets;
 import com.verly.verlyservice.application.model.product.enums.ProductType;
 import com.verly.verlyservice.application.repository.ProductRepository;
-import com.verly.verlyservice.application.service.ProductCostService;
+import com.verly.verlyservice.application.service.TemperedGlassCostService;
 import com.verly.verlyservice.application.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -26,7 +27,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductCostService productCostService;
+    private final TemperedGlassCostService temperedGlassCostService;
 
     public List<ProductDTO> findAll() {
         var products = productRepository.findAll();
@@ -39,95 +40,91 @@ public class ProductServiceImpl implements ProductService {
         return productDTOS;
     }
 
-    private ProductDTO productToProductDTO (Product product){
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setCategory(product.getCategory());
-        productDTO.setType(product.getType());
-        productDTO.setSheets(product.getSheets());
-        productDTO.setWidth(product.getWidth());
-        productDTO.setHeight(product.getHeight());
-        productDTO.setWeight(product.getWeight());
-        productDTO.setColor(product.getColor());
-        return productDTO;
+    private ProductDTO getProductByKey(String key){
+        var product = productToProductDTO(productRepository.findByKey(key));
+        calculatePriceAndCost(product);
+        return product;
     }
 
-    private Product productDTOToProduct (ProductDTO productDTO){
-        Product product = new Product();
-        product.setCategory(productDTO.getCategory());
-        product.setType(productDTO.getType());
-        product.setSheets(productDTO.getSheets());
-        product.setWidth(productDTO.getWidth());
-        product.setHeight(productDTO.getHeight());
-        product.setWeight(productDTO.getWeight());
-        product.setColor(productDTO.getColor());
-
-        return product;
+    private Double sumCostforBox(ProductDTO product){
+        return product
     }
 
     private void calculatePriceAndCost(ProductDTO productDTO) {
         Double colorPrice = 0.00;
-
+        //seta a medida
         productDTO.setMeasure(productDTO.getWidth() * productDTO.getHeight() / 10000);
 
+        //verifica recupera o valor do vidro temperado
         if(productDTO.getCategory().equals(ProductCategory.VIDRO_TEMPERADO.toString())) {
             if (productDTO.getColor().equals(ProductColor.INCOLOR.toString()))
-                colorPrice = 50.00;
+                colorPrice = temperedGlassCostService.recover().getColorLessCost();
             else if (productDTO.getColor().equals(ProductColor.FUME.toString()))
-                colorPrice = 60.00;
+                colorPrice = temperedGlassCostService.recover().getSmokedCost();
             else if (productDTO.getColor().equals(ProductColor.VERDE.toString()))
-                colorPrice = 70.00;
+                colorPrice = temperedGlassCostService.recover().getGreenCost();
 
+            //BOX
             if (productDTO.getType().equals(ProductType.BOX.toString())) {
-                if (productDTO.getSheets().equals(ProductSheets.DUAS.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBox2F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBox2FGain() * productDTO.getCost());
+                if (productDTO.getSheets().equals(ProductSheets.TWO.toString())) {
+                    productDTO.setCost();
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getTwoSheetsBoxGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if (productDTO.getSheets().equals(ProductSheets.QUATRO.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBox4F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBox4FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValueBox4F());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getBox4FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.OPEN.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueBoxOpen());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getBoxOpenGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValueBoxOpen());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getBoxOpenGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }
 
+            //JANELA
             if (productDTO.getType().equals(ProductType.JANELA.toString())) {
                 if (productDTO.getSheets().equals(ProductSheets.DUAS.toString())) {
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueJanela2F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getJanela2FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValueJanela2F());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getJanela2FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.QUATRO.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValueJanela4F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getJanela4fGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValueJanela4F());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getJanela4fGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }
+
+            //PORTA
             if(productDTO.getType().equals(ProductType.PORTA.toString())){
                 if(productDTO.getSheets().equals(ProductSheets.DUAS.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePorta2F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPorta2FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValuePorta2F());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getPorta2FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.QUATRO.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePorta4F());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPorta4FGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValuePorta4F());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getPorta4FGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
                 if(productDTO.getSheets().equals(ProductSheets.OPEN.toString())){
-                    productDTO.setCost(productDTO.getMeasure() * colorPrice + productCostService.recoverCost().getLaborValuePortaOpen());
-                    productDTO.setPrice(productDTO.getCost() + productCostService.recoverCost().getPortaOpenGain() * productDTO.getCost());
+                    productDTO.setCost(productDTO.getMeasure() * colorPrice + temperedGlassCostService.recover().getLaborValuePortaOpen());
+                    productDTO.setPrice(productDTO.getCost() + temperedGlassCostService.recover().getPortaOpenGain() * productDTO.getCost());
                     productDTO.setProfit(productDTO.getPrice() - productDTO.getCost());
                 }
             }
 
         }
+        if(Objects.isNull(productDTO.getProfit()))
+            productDTO.setProfit(666.666);
+        if(Objects.isNull(productDTO.getCost()))
+            productDTO.setCost(666.666);
         productDTO.setProfit(DoubleRounder.round(productDTO.getProfit(),2));
         productDTO.setCost(DoubleRounder.round(productDTO.getCost(),2));
+
+
 
     }
 
@@ -141,7 +138,9 @@ public class ProductServiceImpl implements ProductService {
 
         product.setCreatedDate(LocalDateTime.now());
 
-        return productRepository.save(product);
+        var teste = productRepository.save(product);
+
+        return teste;
     }
 
     @Override
@@ -161,6 +160,34 @@ public class ProductServiceImpl implements ProductService {
         // });
 
         return (ArrayList<Product>) productRepository.findAllById(productIds);
+    }
+
+    private ProductDTO productToProductDTO (Product product){
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setCategory(product.getCategory());
+        productDTO.setType(product.getType());
+        productDTO.setSheets(product.getSheets());
+        productDTO.setWidth(product.getWidth());
+        productDTO.setHeight(product.getHeight());
+        productDTO.setWeight(product.getWeight());
+        productDTO.setColor(product.getColor());
+        productDTO.setKit(product.getKit());
+        productDTO.setKey(product.getKey());
+        return productDTO;
+    }
+
+    private Product productDTOToProduct (ProductDTO productDTO){
+        Product product = new Product();
+        product.setCategory(productDTO.getCategory());
+        product.setType(productDTO.getType());
+        product.setSheets(productDTO.getSheets());
+        product.setWidth(productDTO.getWidth());
+        product.setHeight(productDTO.getHeight());
+        product.setWeight(productDTO.getWeight());
+        product.setColor(productDTO.getColor());
+        product.setKit(productDTO.getKit());
+        product.setKey(productDTO.getKey());
+        return product;
     }
 
 
