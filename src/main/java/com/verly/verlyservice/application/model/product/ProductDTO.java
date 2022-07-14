@@ -37,6 +37,8 @@ public class ProductDTO {
 
     private Double profit;
 
+    private String laborValueKey;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime lastUpdateDate;

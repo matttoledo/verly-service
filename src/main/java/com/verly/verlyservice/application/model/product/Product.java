@@ -53,6 +53,8 @@ public class Product {
 
     private String kit;
 
+    private String laborValueKey;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime lastUpdateDate;
