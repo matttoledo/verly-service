@@ -1,23 +1,20 @@
 package com.verly.verlyservice.application.controller;
 
-import com.verly.verlyservice.application.model.ProductCost;
-import com.verly.verlyservice.application.service.ProductCostService;
+import com.verly.verlyservice.application.model.TemperedGlassCost;
+import com.verly.verlyservice.application.service.TemperedGlassCostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("productCost")
 public class ProductCostController {
-    private final ProductCostService productCostService;
+    private final TemperedGlassCostService temperedGlassCostService;
 
     @GetMapping
-    private ResponseEntity<ProductCost> recoverCost(){
-        ProductCost productCost = productCostService.recoverCost();
-        return ResponseEntity.ok(productCost);
+    private ResponseEntity<TemperedGlassCost> recoverCost(){
+        TemperedGlassCost temperedGlassCost = temperedGlassCostService.recover();
+        return ResponseEntity.ok(temperedGlassCost);
     }
 }

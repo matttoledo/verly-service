@@ -35,6 +35,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String key;
+
     private String category;
 
     private String type;
@@ -48,6 +50,8 @@ public class Product {
     private Double weight;
 
     private String color;
+
+    private String kit;
 
     private LocalDateTime createdDate;
 

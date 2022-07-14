@@ -22,30 +22,29 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("product")
-
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    private ResponseEntity<List<ProductDTO>> findAll(){
+    public ResponseEntity<List<ProductDTO>> findAll(){
         List<ProductDTO> products = productService.findAll();
         return ResponseEntity.ok(products);
     }
 
     @PostMapping
-    private ResponseEntity<Product> create(@RequestBody ProductDTO product) {
+    public ResponseEntity<Product> create(@RequestBody ProductDTO product) {
         if (Objects.isNull(product))
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(productService.create(product));
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity<Product> edit(@RequestBody ProductDTO product, @PathVariable("id") Long id){
+    public ResponseEntity<Product> edit(@RequestBody ProductDTO product, @PathVariable("id") Long id){
         return ResponseEntity.ok(productService.edit(product));
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<ProductDTO> delete(@RequestBody ProductDTO product, @PathVariable("id") Long id){
+    public ResponseEntity<ProductDTO> delete(@RequestBody ProductDTO product, @PathVariable("id") Long id){
         return ResponseEntity.ok(product);
     }
 
