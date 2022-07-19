@@ -15,8 +15,4 @@ public class VerlyServiceApplication {
 
 		System.out.println(new BCryptPasswordEncoder().encode("123456"));
 	}
-
-//	@Bean public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
 }
