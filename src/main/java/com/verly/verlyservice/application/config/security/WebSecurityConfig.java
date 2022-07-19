@@ -1,4 +1,4 @@
-package com.verly.verlyservice.application.security;
+package com.verly.verlyservice.application.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

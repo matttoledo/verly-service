@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.UUID;
@@ -17,17 +18,18 @@ import java.util.UUID;
 @Table(name = "tb_user")
 public class User implements Serializable, UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;
 
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String password;
 
     @Override
