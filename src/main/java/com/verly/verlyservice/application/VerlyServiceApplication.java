@@ -13,6 +13,6 @@ public class VerlyServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VerlyServiceApplication.class, args);
 
-		System.out.println(new BCryptPasswordEncoder().encode("123456"));
+		System.out.println(new BCryptPasswordEncoder().encode("senha123"));
 	}
 }
